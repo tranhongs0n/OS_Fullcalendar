@@ -1,0 +1,220 @@
+/* ==========================================
+   1. VARIABLES & BASE STYLES
+   ========================================== */
+:root {
+    --primary-color: #2c3e50;
+    --accent-color: #3498db;
+    --bg-gray: #f8f9fa;
+    --header-bg: #f1f3f4;
+    --fc-non-business-color: #fff;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    /* Prevent page scroll */
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-gray);
+    color: var(--primary-color);
+}
+
+/* ==========================================
+   2. LAYOUT COMPONENTS
+   ========================================== */
+.container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1 {
+    text-align: center;
+    font-weight: 300;
+    margin: 0 0 20px 0;
+    color: var(--primary-color);
+    flex-shrink: 0;
+}
+
+#calendar, 
+#Calendar, 
+.fCalendar {
+    background: white;
+    flex-grow: 1;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    padding: 0;
+    min-height: 0;
+}
+
+/* Fix specifically for the FullCalendar OutSystems wrapper */
+#Calendar.OSBlockWidget {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+/* ==========================================
+   3. FULLCALENDAR GENERAL OVERRIDES
+   ========================================== */
+/* Hide FullCalendar Toolbar & License Message */
+.fc .fc-toolbar.fc-header-toolbar,
+.fc-license-message {
+    display: none !important;
+}
+
+/* Remove default borders */
+.fc-theme-standard .fc-scrollgrid {
+    border: none;
+}
+
+
+/* Prevent timeline slots from stretching to fill width */
+.fc .fc-timeline-slots-body,
+.fc .fc-timeline-header-body {
+    min-width: max-content !important;
+}
+
+/* Header cells background */
+.fc-col-header-cell,
+.fc-resource-area-header-cell {
+    background-color: var(--header-bg) !important;
+}
+
+/* ==========================================
+   4. RESOURCE SIDEBAR & GRID
+   ========================================== */
+/* Custom styling for the link in resource labels */
+.fc-datagrid-cell-main a {
+    color: var(--accent-color);
+    font-weight: 600;
+    transition: color 0.2s;
+    cursor: pointer;
+}
+
+.fc-datagrid-cell-main a:hover {
+    color: #2980b9;
+    text-decoration: underline;
+}
+
+/* Fixed Row Height for body rows only */
+.fc-datagrid-body .fc-datagrid-cell,
+.fc-timeline-body .fc-timeline-lane {
+    height: 180px !important;
+}
+
+/* ==========================================
+   5. EVENT CARD STYLES
+   ========================================== */
+.fc-timeline-event {
+    background-color: var(--fc-event-bg-color, #fff7e6) !important;
+    border: 1px dashed var(--fc-event-border-color, #ffd591) !important;
+    border-radius: 4px !important;
+    padding: 8px !important;
+    box-shadow: none !important;
+    margin-bottom: 5px !important;
+    overflow: hidden;
+}
+
+.fc .fc-timeline-event-harness,
+.fc .fc-timeline-more-link {
+    margin: 8px 0;
+}
+
+/* Custom Event Card Content */
+.custom-event-card {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    color: #333;
+}
+
+.event-header {
+    font-size: 13px;
+    line-height: 1.4;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.event-dates {
+    color: #666;
+    margin-right: 8px;
+}
+
+.event-title-main {
+    font-weight: bold;
+}
+
+.event-description {
+    font-size: 12px;
+    color: #666;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Legacy / Helper card content classes */
+.card-content {
+    flex: 1;
+    padding: 12px 16px;
+    border-radius: 8px;
+}
+
+/* ==========================================
+   6. STATUS COLORS & THEMES
+   ========================================== */
+/* Event Color Themes */
+.event-yellow {
+    --fc-event-bg-color: #fffbe6;
+    --fc-event-border-color: #ffe58f;
+}
+
+.event-pink {
+    --fc-event-bg-color: #fff1f0;
+    --fc-event-border-color: #ffa39e;
+}
+
+.event-orange {
+    --fc-event-bg-color: #fff7e6;
+    --fc-event-border-color: #ffd591;
+}
+
+/* Small Status Indicators */
+.status-container {
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+}
+
+.status-open {
+    background: #3B82F6;
+}
+
+.status-completed {
+    background: #22C55E;
+}
+
+.status-waiting-change {
+    background: #F59E0B;
+}
+
+.status-busy {
+    background: #EF4444;
+}
+
+/* Force hide non-business shading and grey bars */
+.fc-non-business, 
+.fc-timeline-bg-harness .fc-non-business,
+.fc-bg-event {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
