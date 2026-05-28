@@ -98,12 +98,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   calendar.render();
 
-  // Helper function to perform scroll logic based on views and years/months using robust DOM offsets
+  // Helper function to perform scroll logic based on views and years/months using smooth animated transitions
   function performScroll(year, month) {
-    const scroller = document.querySelector('#calendar .fc-scroller-harness-liquid .fc-scroller') || 
-                     document.querySelector('.fc-scroller-harness-liquid .fc-scroller');
-    if (!scroller) return;
-
     const today = new Date();
     const todayYear = today.getFullYear();
     const todayMonth = String(today.getMonth() + 1).padStart(2, '0');
@@ -132,11 +128,36 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     }
 
-    const targetSlot = document.querySelector(`th[data-date="${targetDateStr}"]`);
-    if (targetSlot) {
-      scroller.scrollLeft = targetSlot.offsetLeft;
-    } else {
-      scroller.scrollLeft = 0;
+    const calendarEl = document.getElementById('calendar') || document.querySelector('.fc');
+    if (!calendarEl) return;
+
+    // Use a flexible selector for target slot (handles th, td, or any container with data-date)
+    const targetSlot = calendarEl.querySelector(`[data-date="${targetDateStr}"]`);
+    
+    // Find the main horizontal scroller for the timeline body
+    let scroller = null;
+    const timelineBody = calendarEl.querySelector('.fc-timeline-body');
+    if (timelineBody) {
+      scroller = timelineBody.closest('.fc-scroller');
+    }
+    if (!scroller) {
+      scroller = calendarEl.querySelector('.fc-scroller-liquid-absolute') || calendarEl.querySelector('.fc-scroller');
+    }
+
+    if (scroller) {
+      let targetScrollLeft = 0;
+      if (targetSlot) {
+        // Precise scroll target calculation using getBoundingClientRect (immune to offsetParent differences)
+        const slotRect = targetSlot.getBoundingClientRect();
+        const scrollerRect = scroller.getBoundingClientRect();
+        targetScrollLeft = slotRect.left - scrollerRect.left + scroller.scrollLeft;
+      }
+
+      // Smoothly animate the horizontal scroll
+      scroller.scrollTo({
+        left: targetScrollLeft,
+        behavior: 'smooth'
+      });
     }
   }
 
