@@ -403,13 +403,19 @@ h1 {
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
-/* Hide horizontal scrollbar at the header (tháng and locales) */
+/* Hide horizontal scrollbar at the header and datagrid body */
 #calendar .fc-scrollgrid-section-header .fc-scroller::-webkit-scrollbar,
 #Calendar .fc-scrollgrid-section-header .fc-scroller::-webkit-scrollbar,
 #calendar2 .fc-scrollgrid-section-header .fc-scroller::-webkit-scrollbar,
 #Calendar2 .fc-scrollgrid-section-header .fc-scroller::-webkit-scrollbar,
 .fCalendar .fc-scrollgrid-section-header .fc-scroller::-webkit-scrollbar,
-.fc-scrollgrid-section-header .fc-scroller::-webkit-scrollbar {
+.fc-scrollgrid-section-header .fc-scroller::-webkit-scrollbar,
+#calendar .fc-datagrid-body .fc-scroller::-webkit-scrollbar,
+#Calendar .fc-datagrid-body .fc-scroller::-webkit-scrollbar,
+#calendar2 .fc-datagrid-body .fc-scroller::-webkit-scrollbar,
+#Calendar2 .fc-datagrid-body .fc-scroller::-webkit-scrollbar,
+.fCalendar .fc-datagrid-body .fc-scroller::-webkit-scrollbar,
+.fc-datagrid-body .fc-scroller::-webkit-scrollbar {
     display: none !important;
     width: 0 !important;
     height: 0 !important;
@@ -420,7 +426,13 @@ h1 {
 #calendar2 .fc-scrollgrid-section-header .fc-scroller,
 #Calendar2 .fc-scrollgrid-section-header .fc-scroller,
 .fCalendar .fc-scrollgrid-section-header .fc-scroller,
-.fc-scrollgrid-section-header .fc-scroller {
+.fc-scrollgrid-section-header .fc-scroller,
+#calendar .fc-datagrid-body .fc-scroller,
+#Calendar .fc-datagrid-body .fc-scroller,
+#calendar2 .fc-datagrid-body .fc-scroller,
+#Calendar2 .fc-datagrid-body .fc-scroller,
+.fCalendar .fc-datagrid-body .fc-scroller,
+.fc-datagrid-body .fc-scroller {
     -ms-overflow-style: none !important;  /* IE and Edge */
     scrollbar-width: none !important;  /* Firefox */
     margin-bottom: 0 !important;          /* Neutralize negative margin offset */
