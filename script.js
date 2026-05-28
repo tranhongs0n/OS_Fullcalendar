@@ -195,12 +195,7 @@ function findCalendarContainer(widgetId) {
   if (container) return container;
 
   // Fallback to substring matching (useful for dynamic OutSystems ID variables)
-  container = document.querySelector(`[id*="${widgetId}"]`) || document.querySelector(`.fc`);
-  if (!container) {
-    console.error(`[scrollToCalendarDate] Calendar container matching "${widgetId}" was not found in the DOM.`);
-    return null;
-  }
-  return container;
+  return document.querySelector(`[id*="${widgetId}"]`) || document.querySelector(`.fc`);
 }
 
 /**
