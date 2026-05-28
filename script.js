@@ -119,8 +119,35 @@ document.addEventListener('DOMContentLoaded', function () {
       calendar.changeView(viewName);
       
       // Re-apply automatic scroll to today in the new view
-      setTimeout(scrollToToday, 100);
     });
   });
+
+  // Handle Year and Month filters
+  const yearSelect = document.getElementById('filter-year');
+  const monthSelect = document.getElementById('filter-month');
+
+  function handleFilterChange() {
+    const year = yearSelect.value;
+    const month = monthSelect.value;
+    
+    // Construct target date (first day of the selected month/year)
+    const targetDateStr = `${year}-${month}-01`;
+    
+    // Jump calendar to that target date
+    calendar.gotoDate(targetDateStr);
+    
+    // If in Year view, scroll horizontally to the selected month
+    if (calendar.view.type === 'resourceTimelineYears') {
+      setTimeout(function () {
+        const viewStart = calendar.view.activeStart;
+        const targetDate = new Date(year, parseInt(month, 10) - 1, 1);
+        const msDiff = targetDate - viewStart;
+        calendar.scrollToTime(msDiff);
+      }, 50);
+    }
+  }
+
+  yearSelect.addEventListener('change', handleFilterChange);
+  monthSelect.addEventListener('change', handleFilterChange);
 });
 
