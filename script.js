@@ -98,16 +98,46 @@ document.addEventListener('DOMContentLoaded', function () {
 
   calendar.render();
 
-  // Helper function to scroll to today's date dynamically
-  function scrollToToday() {
-    const viewStart = calendar.view.activeStart;
+  // Helper function to perform scroll logic based on views and years/months
+  function performScroll(year, month) {
     const today = new Date();
-    const msDiff = today - viewStart;
+    const todayYear = today.getFullYear();
+    const todayMonth = today.getMonth() + 1; // 1-indexed (1 to 12)
+
+    const viewStart = calendar.view.activeStart;
+    let msDiff = 0;
+
+    if (calendar.view.type === 'resourceTimelineYears') {
+      if (parseInt(year, 10) === todayYear) {
+        // Same year: scroll to start of current month
+        const targetDate = new Date(todayYear, today.getMonth(), 1);
+        msDiff = targetDate - viewStart;
+      } else {
+        // Different year: scroll to start of year (January) -> msDiff = 0
+        msDiff = 0;
+      }
+    } else if (calendar.view.type === 'resourceTimelineMonth') {
+      if (parseInt(year, 10) === todayYear && parseInt(month, 10) === todayMonth) {
+        // Same month: scroll to current day (today)
+        const targetDate = new Date(todayYear, today.getMonth(), today.getDate());
+        msDiff = targetDate - viewStart;
+      } else {
+        // Different month: scroll to start of month -> msDiff = 0
+        msDiff = 0;
+      }
+    }
+
     calendar.scrollToTime(msDiff);
   }
 
-  // Automatically scroll to the current month/day on initial load
-  setTimeout(scrollToToday, 100);
+  // Handle Year and Month filters
+  const yearSelect = document.getElementById('filter-year');
+  const monthSelect = document.getElementById('filter-month');
+
+  // Automatically scroll to the correct month/day on initial load
+  setTimeout(function () {
+    performScroll(yearSelect.value, monthSelect.value);
+  }, 100);
 
   // Handle sidebar view toggling
   const viewButtons = document.querySelectorAll('.sidebar-option');
@@ -118,13 +148,12 @@ document.addEventListener('DOMContentLoaded', function () {
       const viewName = this.getAttribute('data-view');
       calendar.changeView(viewName);
       
-      // Re-apply automatic scroll to today in the new view
+      // Re-apply automatic scroll based on the current selection in the new view
+      setTimeout(function () {
+        performScroll(yearSelect.value, monthSelect.value);
+      }, 100);
     });
   });
-
-  // Handle Year and Month filters
-  const yearSelect = document.getElementById('filter-year');
-  const monthSelect = document.getElementById('filter-month');
 
   function handleFilterChange() {
     const year = yearSelect.value;
@@ -136,15 +165,10 @@ document.addEventListener('DOMContentLoaded', function () {
     // Jump calendar to that target date
     calendar.gotoDate(targetDateStr);
     
-    // If in Year view, scroll horizontally to the selected month
-    if (calendar.view.type === 'resourceTimelineYears') {
-      setTimeout(function () {
-        const viewStart = calendar.view.activeStart;
-        const targetDate = new Date(year, parseInt(month, 10) - 1, 1);
-        const msDiff = targetDate - viewStart;
-        calendar.scrollToTime(msDiff);
-      }, 50);
-    }
+    // Re-apply automatic scroll based on the selected year and month
+    setTimeout(function () {
+      performScroll(year, month);
+    }, 100);
   }
 
   yearSelect.addEventListener('change', handleFilterChange);
