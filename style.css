@@ -410,12 +410,12 @@ h1 {
 #Calendar2 .fc-scrollgrid-section-header .fc-scroller::-webkit-scrollbar,
 .fCalendar .fc-scrollgrid-section-header .fc-scroller::-webkit-scrollbar,
 .fc-scrollgrid-section-header .fc-scroller::-webkit-scrollbar,
-#calendar .fc-scroller-liquid-absolute::-webkit-scrollbar,
-#Calendar .fc-scroller-liquid-absolute::-webkit-scrollbar,
-#calendar2 .fc-scroller-liquid-absolute::-webkit-scrollbar,
-#Calendar2 .fc-scroller-liquid-absolute::-webkit-scrollbar,
-.fCalendar .fc-scroller-liquid-absolute::-webkit-scrollbar,
-.fc-scroller-liquid-absolute::-webkit-scrollbar {
+#calendar .fc-scroller:has(.fc-datagrid-body)::-webkit-scrollbar,
+#Calendar .fc-scroller:has(.fc-datagrid-body)::-webkit-scrollbar,
+#calendar2 .fc-scroller:has(.fc-datagrid-body)::-webkit-scrollbar,
+#Calendar2 .fc-scroller:has(.fc-datagrid-body)::-webkit-scrollbar,
+.fCalendar .fc-scroller:has(.fc-datagrid-body)::-webkit-scrollbar,
+.fc-scroller:has(.fc-datagrid-body)::-webkit-scrollbar {
     display: none !important;
     width: 0 !important;
     height: 0 !important;
@@ -427,12 +427,12 @@ h1 {
 #Calendar2 .fc-scrollgrid-section-header .fc-scroller,
 .fCalendar .fc-scrollgrid-section-header .fc-scroller,
 .fc-scrollgrid-section-header .fc-scroller,
-#calendar .fc-scroller-liquid-absolute,
-#Calendar .fc-scroller-liquid-absolute,
-#calendar2 .fc-scroller-liquid-absolute,
-#Calendar2 .fc-scroller-liquid-absolute,
-.fCalendar .fc-scroller-liquid-absolute,
-.fc-scroller-liquid-absolute {
+#calendar .fc-scroller:has(.fc-datagrid-body),
+#Calendar .fc-scroller:has(.fc-datagrid-body),
+#calendar2 .fc-scroller:has(.fc-datagrid-body),
+#Calendar2 .fc-scroller:has(.fc-datagrid-body),
+.fCalendar .fc-scroller:has(.fc-datagrid-body),
+.fc-scroller:has(.fc-datagrid-body) {
     -ms-overflow-style: none !important;  /* IE and Edge */
     scrollbar-width: none !important;  /* Firefox */
     margin-bottom: 0 !important;          /* Neutralize negative margin offset */
