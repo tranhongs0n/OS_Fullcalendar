@@ -403,10 +403,20 @@ h1 {
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
-/* Smooth Scrolling Animation (only on timeline body to prevent header lag) */
-.fc-timeline-body .fc-scroller {
+/* Enable smooth scrolling on scrollers by default */
+.fc-scroller {
     scroll-behavior: smooth !important;
 }
+
+/* Disable smooth scrolling on headers to prevent synchronization lag */
+.fc-datagrid-header .fc-scroller,
+.fc-timeline-header .fc-scroller,
+.fc-col-header .fc-scroller {
+    scroll-behavior: auto !important;
+}
+
+
+
 
 
 
