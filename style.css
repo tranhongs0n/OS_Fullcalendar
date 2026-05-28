@@ -423,6 +423,9 @@ h1 {
 .fc-scrollgrid-section-header .fc-scroller {
     -ms-overflow-style: none !important;  /* IE and Edge */
     scrollbar-width: none !important;  /* Firefox */
+    margin-bottom: 0 !important;          /* Neutralize negative margin offset */
+    margin-right: 0 !important;           /* Neutralize negative margin offset */
+    padding-bottom: 0 !important;         /* Neutralize scrollbar padding offset */
 }
 
 
