@@ -231,3 +231,27 @@ h1 {
 .fc-datagrid-cell-frame {
     height: 100%;
 }
+
+/* Center the resource area header (Tỉnh/Thành phố) */
+.fc-datagrid-header .fc-datagrid-cell-frame {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+}
+.fc-datagrid-header .fc-datagrid-cell-cushion {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    padding-left: 0 !important;
+}
+.fc-datagrid-header .fc-datagrid-cell-main {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    padding-left: 0 !important;
+}
+.fc-datagrid-header .fc-datagrid-expander {
+    display: none !important;
+}
+

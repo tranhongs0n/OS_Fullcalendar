@@ -79,4 +79,13 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   calendar.render();
+
+  // Automatically scroll to the current month on initial load
+  setTimeout(function () {
+    const viewStart = calendar.view.activeStart;
+    const today = new Date();
+    const msDiff = today - viewStart;
+    calendar.scrollToTime(msDiff);
+  }, 100);
 });
+
