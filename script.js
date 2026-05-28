@@ -7,16 +7,27 @@ document.addEventListener('DOMContentLoaded', function () {
     timeZone: 'Asia/Ho_Chi_Minh',
     locale: 'vi',
     initialView: 'resourceTimelineYears',
+    initialDate: '2026-05-01',
     views: {
       resourceTimelineYears: {
         type: 'resourceTimeline',
         duration: { years: 1 },
         slotDuration: { months: 1 }
       },
-      resourceTimelineMonths: {
+      resourceTimelineMonth: {
         type: 'resourceTimeline',
         duration: { months: 1 },
-        slotDuration: { days: 1 }
+        slotDuration: { days: 1 },
+        slotMinWidth: 256,
+        slotLabelContent: function (arg) {
+          var date = arg.date;
+          var dayOfWeek = date.getDay();
+          var dayOfMonth = date.getDate();
+          var vietnameseDays = [
+            'Chủ nhật', 'Thứ hai', 'Thứ ba', 'Thứ tư', 'Thứ năm', 'Thứ sáu', 'Thứ bảy'
+          ];
+          return vietnameseDays[dayOfWeek] + ' - ' + dayOfMonth;
+        }
       }
     },
     editable: true,
@@ -37,15 +48,17 @@ document.addEventListener('DOMContentLoaded', function () {
         : '';
 
       const title = arg.event.title;
-      const desc =
-        arg.event.extendedProps.description ||
-        'Việc thực hiện chính sách, pháp luật về';
+      const desc = arg.event.extendedProps.description || '';
+
+      const dateText = (endTime && endTime !== startTime)
+        ? `${startTime} - ${endTime}`
+        : startTime;
 
       return {
         html: `
           <div class="custom-event-card">
             <div class="event-header">
-              <span class="event-dates">${startTime} - ${endTime}</span>
+              <span class="event-dates">${dateText}</span>
               <span class="event-title-main">${title}</span>
             </div>
             <div class="event-description">${desc}</div>
