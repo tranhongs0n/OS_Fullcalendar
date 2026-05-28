@@ -403,6 +403,21 @@ h1 {
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
+/* Hide horizontal scrollbar at the header (tháng and locales) */
+.fc-timeline-header .fc-scroller::-webkit-scrollbar,
+.fc-datagrid-header .fc-scroller::-webkit-scrollbar,
+.fc-col-header .fc-scroller::-webkit-scrollbar {
+    display: none !important;
+}
+
+.fc-timeline-header .fc-scroller,
+.fc-datagrid-header .fc-scroller,
+.fc-col-header .fc-scroller {
+    -ms-overflow-style: none !important;  /* IE and Edge */
+    scrollbar-width: none !important;  /* Firefox */
+}
+
+
 
 
 
