@@ -98,36 +98,46 @@ document.addEventListener('DOMContentLoaded', function () {
 
   calendar.render();
 
-  // Helper function to perform scroll logic based on views and years/months
+  // Helper function to perform scroll logic based on views and years/months using robust DOM offsets
   function performScroll(year, month) {
+    const scroller = document.querySelector('#calendar .fc-scroller-harness-liquid .fc-scroller') || 
+                     document.querySelector('.fc-scroller-harness-liquid .fc-scroller');
+    if (!scroller) return;
+
     const today = new Date();
     const todayYear = today.getFullYear();
-    const todayMonth = today.getMonth() + 1; // 1-indexed (1 to 12)
+    const todayMonth = String(today.getMonth() + 1).padStart(2, '0');
+    const todayDate = String(today.getDate()).padStart(2, '0');
 
-    const viewStart = calendar.view.activeStart;
-    let msDiff = 0;
+    const selectedYear = year;
+    const selectedMonth = String(month).padStart(2, '0');
+
+    let targetDateStr = '';
 
     if (calendar.view.type === 'resourceTimelineYears') {
-      if (parseInt(year, 10) === todayYear) {
-        // Same year: scroll to start of current month
-        const targetDate = new Date(todayYear, today.getMonth(), 1);
-        msDiff = targetDate - viewStart;
+      if (parseInt(selectedYear, 10) === todayYear) {
+        // Same year: scroll to start of today's current month
+        targetDateStr = `${todayYear}-${todayMonth}-01`;
       } else {
-        // Different year: scroll to start of year (January) -> msDiff = 0
-        msDiff = 0;
+        // Different year: scroll to January 1st
+        targetDateStr = `${selectedYear}-01-01`;
       }
     } else if (calendar.view.type === 'resourceTimelineMonth') {
-      if (parseInt(year, 10) === todayYear && parseInt(month, 10) === todayMonth) {
-        // Same month: scroll to current day (today)
-        const targetDate = new Date(todayYear, today.getMonth(), today.getDate());
-        msDiff = targetDate - viewStart;
+      if (parseInt(selectedYear, 10) === todayYear && selectedMonth === todayMonth) {
+        // Same month: scroll to today's current day
+        targetDateStr = `${todayYear}-${todayMonth}-${todayDate}`;
       } else {
-        // Different month: scroll to start of month -> msDiff = 0
-        msDiff = 0;
+        // Different month: scroll to 1st of selected month
+        targetDateStr = `${selectedYear}-${selectedMonth}-01`;
       }
     }
 
-    calendar.scrollToTime(msDiff);
+    const targetSlot = document.querySelector(`th[data-date="${targetDateStr}"]`);
+    if (targetSlot) {
+      scroller.scrollLeft = targetSlot.offsetLeft;
+    } else {
+      scroller.scrollLeft = 0;
+    }
   }
 
   // Handle Year and Month filters
