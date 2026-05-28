@@ -404,12 +404,22 @@ h1 {
 }
 
 /* Hide horizontal scrollbar at the header (tháng and locales) */
+#calendar .fc-scrollgrid-section-header .fc-scroller::-webkit-scrollbar,
+#Calendar .fc-scrollgrid-section-header .fc-scroller::-webkit-scrollbar,
+#calendar2 .fc-scrollgrid-section-header .fc-scroller::-webkit-scrollbar,
+#Calendar2 .fc-scrollgrid-section-header .fc-scroller::-webkit-scrollbar,
+.fCalendar .fc-scrollgrid-section-header .fc-scroller::-webkit-scrollbar,
 .fc-scrollgrid-section-header .fc-scroller::-webkit-scrollbar {
     display: none !important;
     width: 0 !important;
     height: 0 !important;
 }
 
+#calendar .fc-scrollgrid-section-header .fc-scroller,
+#Calendar .fc-scrollgrid-section-header .fc-scroller,
+#calendar2 .fc-scrollgrid-section-header .fc-scroller,
+#Calendar2 .fc-scrollgrid-section-header .fc-scroller,
+.fCalendar .fc-scrollgrid-section-header .fc-scroller,
 .fc-scrollgrid-section-header .fc-scroller {
     -ms-overflow-style: none !important;  /* IE and Edge */
     scrollbar-width: none !important;  /* Firefox */
