@@ -16,7 +16,24 @@
 <body>
 
     <div class="container">
-        <div id='calendar'></div>
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3>Chế độ xem</h3>
+            </div>
+            <div class="sidebar-options">
+                <button class="sidebar-option active" data-view="resourceTimelineYears">
+                    <span class="option-icon">📅</span>
+                    <span class="option-label">Xem theo Năm (Tháng)</span>
+                </button>
+                <button class="sidebar-option" data-view="resourceTimelineMonths">
+                    <span class="option-icon">📆</span>
+                    <span class="option-label">Xem theo Tháng (Ngày)</span>
+                </button>
+            </div>
+        </div>
+        <div class="calendar-wrapper">
+            <div id='calendar'></div>
+        </div>
     </div>
 
     <script src="data.js"></script>

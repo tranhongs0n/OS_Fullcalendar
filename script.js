@@ -12,6 +12,11 @@ document.addEventListener('DOMContentLoaded', function () {
         type: 'resourceTimeline',
         duration: { years: 1 },
         slotDuration: { months: 1 }
+      },
+      resourceTimelineMonths: {
+        type: 'resourceTimeline',
+        duration: { months: 1 },
+        slotDuration: { days: 1 }
       }
     },
     editable: true,
@@ -80,12 +85,29 @@ document.addEventListener('DOMContentLoaded', function () {
 
   calendar.render();
 
-  // Automatically scroll to the current month on initial load
-  setTimeout(function () {
+  // Helper function to scroll to today's date dynamically
+  function scrollToToday() {
     const viewStart = calendar.view.activeStart;
     const today = new Date();
     const msDiff = today - viewStart;
     calendar.scrollToTime(msDiff);
-  }, 100);
+  }
+
+  // Automatically scroll to the current month/day on initial load
+  setTimeout(scrollToToday, 100);
+
+  // Handle sidebar view toggling
+  const viewButtons = document.querySelectorAll('.sidebar-option');
+  viewButtons.forEach(button => {
+    button.addEventListener('click', function () {
+      viewButtons.forEach(btn => btn.classList.remove('active'));
+      this.classList.add('active');
+      const viewName = this.getAttribute('data-view');
+      calendar.changeView(viewName);
+      
+      // Re-apply automatic scroll to today in the new view
+      setTimeout(scrollToToday, 100);
+    });
+  });
 });
 
